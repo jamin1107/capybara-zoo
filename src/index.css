@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #4a7c3f;
+  --color-primary-light: #A5D6A7;
+  --color-secondary: #5D4037;
+  --color-secondary-light: #8D6E63;
+  --color-accent: #F59E0B;
+  --color-background: #E8F5E9;
+
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+.font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Hide scrollbar for food panel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
