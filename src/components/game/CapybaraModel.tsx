@@ -84,24 +84,49 @@ function GLBCapybara({ animation, onClick, scale = 1 }: {
     const g = groupRef.current;
     if (!g) return;
 
-    // Reset local Y offset each frame (parent group handles world position)
+    // Reset each frame
     g.position.y = 0;
+    g.rotation.x = 0;
+    g.rotation.z = 0;
+    // Don't reset rotation.y — it's controlled by the AI for facing direction
+
+    const lerpSpeed = 5;
 
     if (animation === 'sleeping') {
-      g.position.y = -0.08 + Math.sin(t * 0.8) * 0.002;
+      // 趴下睡觉：低头趴地 + 缓慢呼吸
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, Math.PI * 0.15, delta * lerpSpeed);
+      g.position.y = THREE.MathUtils.lerp(g.position.y, -0.12 + Math.sin(t * 0.8) * 0.003, delta * lerpSpeed);
     } else if (animation === 'sleepy') {
-      g.position.y = -0.05 + Math.sin(t * 1) * 0.003;
+      // 打盹：半趴状态 + 轻微点头
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, Math.PI * 0.08, delta * lerpSpeed);
+      g.position.y = THREE.MathUtils.lerp(g.position.y, -0.06 + Math.sin(t * 1) * 0.003, delta * lerpSpeed);
     } else if (animation === 'resting') {
-      g.position.y = -0.04 + Math.sin(t * 1) * 0.003;
+      // 趴着休息：轻微低头
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, Math.PI * 0.05, delta * lerpSpeed);
+      g.position.y = THREE.MathUtils.lerp(g.position.y, -0.05 + Math.sin(t * 1) * 0.003, delta * lerpSpeed);
     } else if (animation === 'happy') {
-      g.position.y = Math.abs(Math.sin(t * 6)) * 0.12;
-      g.rotation.y += Math.sin(t * 3) * 0.02;
-    } else if (animation === 'walking' || animation === 'running') {
-      const speed = animation === 'running' ? 8 : 4;
-      g.position.y = Math.abs(Math.sin(t * speed)) * 0.03;
+      // 开心弹跳：连续跳跃 + 左右摇摆
+      g.position.y = Math.abs(Math.sin(t * 6)) * 0.15;
+      g.rotation.z = Math.sin(t * 3) * 0.1;
+    } else if (animation === 'walking') {
+      // 走路：上下弹跳 + 左右摇摆
+      g.position.y = Math.abs(Math.sin(t * 4)) * 0.04;
+      g.rotation.z = Math.sin(t * 2) * 0.02;
+    } else if (animation === 'running') {
+      // 跑步：更大的弹跳 + 更快的摇摆
+      g.position.y = Math.abs(Math.sin(t * 6)) * 0.06;
+      g.rotation.z = Math.sin(t * 3) * 0.04;
+    } else if (animation === 'eating') {
+      // 吃东西：低头上下摆动
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, Math.PI * 0.08 + Math.sin(t * 3) * 0.05, delta * lerpSpeed);
+      g.position.y = THREE.MathUtils.lerp(g.position.y, -0.03, delta * lerpSpeed);
+    } else if (animation === 'bathing') {
+      // 洗澡：左右抖动
+      g.rotation.z = Math.sin(t * 8) * 0.08;
+      g.position.y = THREE.MathUtils.lerp(g.position.y, Math.abs(Math.sin(t * 4)) * 0.02, delta * lerpSpeed);
     } else {
-      // idle, eating, bathing, etc.
-      g.position.y = Math.sin(t * 1.5) * 0.003;
+      // idle: 呼吸感 — 轻微上下浮动
+      g.position.y = Math.sin(t * 1.5) * 0.005;
     }
   });
 
