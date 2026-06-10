@@ -203,7 +203,11 @@ export function GameScene() {
         <Canvas
           shadows
           camera={{ position: [8, 6, 8], fov: 50, near: 0.1, far: 100 }}
+          gl={{ antialias: true }}
+          style={{ background: '#87CEEB' }}
         >
+          {/* Sky background - will be updated by DayNightCycle */}
+          <color attach="background" args={['#87CEEB']} />
           {/* Day/Night Cycle - controls all lighting */}
           <DayNightCycle />
 
