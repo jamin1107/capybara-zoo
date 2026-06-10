@@ -57,8 +57,8 @@ function getGrowthLabel(stage: Capybara['growthStage']): string {
   switch (stage) {
     case 'baby': return '🍼 幼崽';
     case 'teen': return '🌱 少年';
-    case 'adult': return '🌟 成年';
-    default: return '🍼 幼崽';
+    case 'adult': return ' 成年';
+    default: return ' 幼崽';
   }
 }
 
@@ -107,8 +107,8 @@ export function StatusDetailed() {
   };
 
   return (
-    <div className="absolute top-20 right-4 z-10 w-80">
-      <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 shadow-xl max-h-[calc(100vh-120px)] overflow-y-auto">
+    <div className="absolute top-14 md:top-20 right-1 md:right-4 z-10 w-64 sm:w-72 md:w-80 max-h-[50vh] md:max-h-[60vh]">
+      <div className="bg-white/85 backdrop-blur-md rounded-2xl p-3 md:p-4 shadow-xl overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -124,19 +124,20 @@ export function StatusDetailed() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => selectCapybara(null)}
-              className="text-gray-400 hover:text-gray-600 text-lg leading-none"
-            >
-              ×
-            </button>
-          </div>
+          <button
+            onClick={() => selectCapybara(null)}
+            className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="4" y1="4" x2="12" y2="12" />
+              <line x1="12" y1="4" x2="4" y2="12" />
+            </svg>
+          </button>
         </div>
 
         {/* Core Stats */}
         <div className="space-y-1.5 mb-3">
-          <ProgressBar icon="🍖" label="饥饿度" value={capybara.hunger} color="#FF7043" />
+          <ProgressBar icon="" label="饥饿度" value={capybara.hunger} color="#FF7043" />
           <ProgressBar icon="💧" label="口渴度" value={capybara.thirst} color="#29B6F6" />
           <ProgressBar icon="😊" label="心情" value={capybara.mood} color="#4CAF50" />
           <ProgressBar icon="⚡" label="精力" value={capybara.energy} color="#FFC107" />
@@ -221,14 +222,14 @@ export function StatusDetailed() {
               onClick={() => batheCapybara(capybara.id)}
               className="flex flex-col items-center gap-0.5 bg-blue-50 hover:bg-blue-100 rounded-lg py-1.5 transition-colors"
             >
-              <span className="text-base">🚿</span>
+              <span className="text-base"></span>
               <span className="text-[10px] font-medium text-[#5D4037]">洗澡</span>
             </button>
             <button
               onClick={() => isSleeping ? wakeUp(capybara.id) : putToSleep(capybara.id)}
               className="flex flex-col items-center gap-0.5 bg-indigo-50 hover:bg-indigo-100 rounded-lg py-1.5 transition-colors"
             >
-              <span className="text-base">{isSleeping ? '⏰' : '🛏️'}</span>
+              <span className="text-base">{isSleeping ? '⏰' : '️'}</span>
               <span className="text-[10px] font-medium text-[#5D4037]">{isSleeping ? '叫醒' : '睡觉'}</span>
             </button>
             <button

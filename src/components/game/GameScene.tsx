@@ -280,8 +280,8 @@ export function GameScene() {
             </group>
           ))}
 
-          {/* Farm grid */}
-          <FarmScene />
+          {/* Farm grid - temporarily hidden */}
+          {/* <FarmScene /> */}
 
           {/* Post-processing */}
           <PostProcessingEffects />

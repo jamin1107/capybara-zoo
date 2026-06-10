@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import type { CommandType } from '@/types/game';
 
@@ -9,6 +10,7 @@ const COMMANDS_DATA: { type: CommandType; name: string; icon: string }[] = [
 ];
 
 export function CommandPanel() {
+  const [open, setOpen] = useState(false);
   const selectedCapybaraId = useGameStore((state) => state.selectedCapybaraId);
   const capybaras = useGameStore((state) => state.capybaras);
   const teachCommand = useGameStore((state) => state.teachCommand);
@@ -16,19 +18,22 @@ export function CommandPanel() {
   const gold = useGameStore((state) => state.gold);
 
   if (!selectedCapybaraId) {
+    return null;
+  }
+
+  if (!open) {
     return (
-      <div className="absolute bottom-32 left-4 w-64 z-40" style={{ display: 'none' }}>
-        <div
-          className="rounded-2xl p-4 text-white/50 text-center text-sm"
-          style={{
-            background: 'rgba(20,20,40,0.75)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(255,255,255,0.15)',
-          }}
-        >
-          选择一只卡皮巴拉开始训练
-        </div>
-      </div>
+      <button
+        onClick={() => setOpen(true)}
+        className="absolute bottom-16 left-2 md:bottom-32 md:left-4 px-3 py-2 rounded-xl text-white text-sm font-medium transition-all hover:scale-105 z-40"
+        style={{
+          background: 'rgba(139,92,60,0.7)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255,255,255,0.2)',
+        }}
+      >
+        🎓 训练
+      </button>
     );
   }
 
@@ -36,7 +41,7 @@ export function CommandPanel() {
   if (!capy) return null;
 
   return (
-    <div className="absolute bottom-32 left-4 w-64 z-40">
+    <div className="absolute bottom-20 left-2 md:bottom-32 md:left-4 w-60 md:w-64 z-40 max-h-[50vh] overflow-y-auto">
       <div
         className="rounded-2xl p-4"
         style={{
@@ -45,7 +50,12 @@ export function CommandPanel() {
           border: '1px solid rgba(255,255,255,0.15)',
         }}
       >
-        <h3 className="text-white font-bold text-lg mb-3">🎓 命令训练</h3>
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="text-white font-bold text-lg">🎓 命令训练</h3>
+          <button onClick={() => setOpen(false)} className="text-white/60 hover:text-white text-xl">
+            ✕
+          </button>
+        </div>
         <p className="text-white/50 text-xs mb-2">选择: {capy.name}</p>
 
         <div className="space-y-2">

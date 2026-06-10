@@ -17,6 +17,9 @@ const GLB_PUBLIC_PATH = `${import.meta.env.BASE_URL}capybara.glb`;
 // jsDelivr CDN as fallback (faster in China)
 const GLB_CDN_URL = 'https://cdn.jsdelivr.net/gh/jamin1107/capybara-zoo@main/public/capybara.glb';
 
+// Reduced scale: capybara should be smaller than trees (tree ~2m tall)
+const SCALE_FACTOR = 0.5;
+
 function GLBCapybara({ animation, onClick, scale = 1 }: {
   animation: CapybaraAnimation;
   onClick?: () => void;
@@ -109,7 +112,7 @@ function GLBCapybara({ animation, onClick, scale = 1 }: {
 
   return (
     <group ref={groupRef} onClick={handleClick}>
-      <primitive object={model} scale={scale * 0.8} />
+      <primitive object={model} scale={scale * SCALE_FACTOR} />
     </group>
   );
 }

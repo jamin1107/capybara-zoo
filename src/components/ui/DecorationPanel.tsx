@@ -6,7 +6,7 @@ type Tab = 'background' | 'decoration';
 
 const BACKGROUND_OPTIONS: { type: BackgroundType; name: string; gradient: string; emoji: string }[] = [
   { type: 'default', name: '默认', gradient: 'from-sky-400 to-sky-200', emoji: '☀️' },
-  { type: 'sunset', name: '日落', gradient: 'from-orange-500 to-amber-300', emoji: '🌅' },
+  { type: 'sunset', name: '日落', gradient: 'from-orange-500 to-amber-300', emoji: '' },
   { type: 'night', name: '夜晚', gradient: 'from-indigo-900 to-slate-800', emoji: '🌙' },
   { type: 'cherry_blossom', name: '樱花', gradient: 'from-pink-400 to-rose-200', emoji: '🌸' },
   { type: 'snow', name: '雪景', gradient: 'from-slate-300 to-blue-200', emoji: '❄️' },
@@ -52,18 +52,21 @@ export function DecorationPanel() {
       <div className="absolute inset-0 bg-black/20 z-20" onClick={togglePanel} />
 
       {/* Panel */}
-      <div className="absolute right-0 top-0 bottom-0 w-80 bg-white/80 backdrop-blur-xl z-30 shadow-2xl flex flex-col">
+      <div className="absolute right-0 top-0 bottom-0 w-full sm:w-80 bg-white/80 backdrop-blur-xl z-30 shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200/50">
+        <div className="p-3 md:p-4 border-b border-gray-200/50">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-[#5D4037] font-quicksand">
-              🌳 动物园装饰
+            <h2 className="text-lg md:text-xl font-bold text-[#5D4037] font-quicksand">
+               动物园装饰
             </h2>
             <button
               onClick={togglePanel}
-              className="text-gray-400 hover:text-gray-600 text-2xl"
+              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
             >
-              ×
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <line x1="4" y1="4" x2="12" y2="12" />
+                <line x1="12" y1="4" x2="4" y2="12" />
+              </svg>
             </button>
           </div>
           <p className="text-sm text-gray-500 mt-1">
@@ -96,7 +99,7 @@ export function DecorationPanel() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto p-3 md:p-4">
           {activeTab === 'background' && (
             <div className="space-y-3">
               {BACKGROUND_OPTIONS.map((bg) => (

@@ -18,13 +18,26 @@ export function FoodPanel() {
   };
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-10 px-4 py-4">
+    <div className="absolute bottom-0 left-0 right-0 z-10 px-2 py-2 md:px-4 md:py-4">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg">
-          <h3 className="text-sm font-bold text-[#5D4037] mb-2 font-nunito">
-            {selectedFoodId ? '已选择食物，点击地面投放 🎯' : '选择食物投喂'}
-          </h3>
-          <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl px-2 py-2 md:px-4 md:py-3 shadow-lg">
+          <div className="flex items-center justify-between mb-1.5 md:mb-2">
+            <h3 className="text-xs md:text-sm font-bold text-[#5D4037] font-nunito">
+              {selectedFoodId ? '已选择食物，点击地面投放 🎯' : '选择食物投喂'}
+            </h3>
+            {selectedFoodId && (
+              <button
+                onClick={() => selectFood(null)}
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              >
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="4" y1="4" x2="12" y2="12" />
+                  <line x1="12" y1="4" x2="4" y2="12" />
+                </svg>
+              </button>
+            )}
+          </div>
+          <div className="flex gap-2 md:gap-3 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
             {foods.map((food) => {
               const isUnlocked = unlockedFoods.includes(food.id);
               const isSelected = selectedFoodId === food.id;
@@ -34,7 +47,7 @@ export function FoodPanel() {
                   key={food.id}
                   onClick={() => handleFoodClick(food)}
                   className={`
-                    flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all
+                    flex-shrink-0 flex flex-col items-center gap-0.5 px-2 py-1.5 md:px-3 md:py-2 rounded-xl transition-all
                     ${
                       isSelected
                         ? 'bg-[#A5D6A7] ring-2 ring-[#4CAF50] scale-105'
@@ -45,12 +58,12 @@ export function FoodPanel() {
                   `}
                   disabled={!isUnlocked}
                 >
-                  <span className="text-2xl">{food.icon}</span>
-                  <span className="text-xs font-medium text-[#5D4037] font-nunito">
+                  <span className="text-xl md:text-2xl">{food.icon}</span>
+                  <span className="text-[10px] md:text-xs font-medium text-[#5D4037] font-nunito">
                     {food.name}
                   </span>
                   {!isUnlocked && (
-                    <span className="text-xs text-gray-500 flex items-center gap-1">
+                    <span className="text-[9px] md:text-xs text-gray-500 flex items-center gap-0.5">
                       🔒 {food.unlockCost}🪙
                     </span>
                   )}

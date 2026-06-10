@@ -3,8 +3,6 @@ import { FoodPanel } from '@/components/ui/FoodPanel';
 import { StatusDetailed } from '@/components/ui/StatusDetailed';
 import { ShopPanel } from '@/components/ui/ShopPanel';
 import { DecorationPanel } from '@/components/ui/DecorationPanel';
-import { FarmPanel } from '@/components/ui/FarmPanel';
-import { FarmInfoCard } from '@/components/ui/FarmInfoCard';
 import { SaveManager } from '@/components/ui/SaveManager';
 import { GameScene } from '@/components/game/GameScene';
 import { WeatherWidget } from '@/components/ui/WeatherWidget';
@@ -17,7 +15,6 @@ import { useState, useCallback } from 'react';
 import { LaunchPage } from './LaunchPage';
 
 export function GamePage() {
-  const farmMode = useGameStore((s) => s.farmMode);
   const [gameStarted, setGameStarted] = useState(false);
   const [cameraMode, setCameraMode] = useState(false);
 
@@ -48,17 +45,13 @@ export function GamePage() {
         <>
           <TopBar />
           <WeatherWidget />
-          {!farmMode && <FoodPanel />}
+          <FoodPanel />
           <StatusDetailed />
           <ShopPanel />
           <DecorationPanel />
           <ToyPanel />
           <CommandPanel />
           <DiseaseIndicator />
-
-          {/* Farm UI */}
-          {farmMode && <FarmPanel />}
-          <FarmInfoCard />
 
           {/* Save Manager */}
           <SaveManager />
@@ -70,13 +63,13 @@ export function GamePage() {
 
       {/* Camera mode toggle button - shown when not in camera mode */}
       {!cameraMode && (
-        <div className="absolute bottom-4 right-4 z-50">
+        <div className="absolute bottom-16 right-2 md:bottom-4 md:right-4 z-50">
           <button
             onClick={toggleCameraMode}
-            className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 active:scale-95 transition-all"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 active:scale-95 transition-all"
             title="拍照模式"
           >
-            <span className="text-xl"></span>
+            <span className="text-lg md:text-xl">📷</span>
           </button>
         </div>
       )}

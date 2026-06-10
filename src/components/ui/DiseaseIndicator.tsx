@@ -16,7 +16,7 @@ export function DiseaseIndicator() {
   if (sickCapybaras.length === 0) return null;
 
   return (
-    <div className="absolute top-16 right-4 z-40 space-y-2">
+    <div className="absolute top-16 right-4 z-40 space-y-2 max-h-[40vh] overflow-y-auto">
       {sickCapybaras.map((capy) => {
         const disease = DISEASE_INFO[capy.health] || { name: '未知疾病', icon: '⚠️', description: '未知疾病' };
 
@@ -31,22 +31,24 @@ export function DiseaseIndicator() {
               animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }}
           >
-            <div className="flex items-center gap-2">
-              <span className="text-xl">{disease.icon}</span>
-              <div>
-                <div className="text-red-300 text-sm font-bold">
-                  {capy.name} - {disease.name}
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">{disease.icon}</span>
+                <div>
+                  <div className="text-red-300 text-sm font-bold">
+                    {capy.name} - {disease.name}
+                  </div>
+                  <div className="text-red-200/70 text-[10px]">{disease.description}</div>
                 </div>
-                <div className="text-red-200/70 text-[10px]">{disease.description}</div>
               </div>
+              <button
+                onClick={() => giveMedicine(capy.id)}
+                disabled={gold < 20}
+                className="px-2 py-1 rounded-lg text-xs font-medium bg-red-600/70 text-white hover:bg-red-600/90 disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+              >
+                💊 吃药
+              </button>
             </div>
-            <button
-              onClick={() => giveMedicine(capy.id)}
-              disabled={gold < 20}
-              className="w-full mt-2 px-3 py-1 rounded-lg text-xs font-medium bg-red-600/70 text-white hover:bg-red-600/90 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              💊 吃药 (20金币)
-            </button>
           </div>
         );
       })}

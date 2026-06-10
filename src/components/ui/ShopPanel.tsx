@@ -19,18 +19,21 @@ export function ShopPanel() {
       />
 
       {/* Panel */}
-      <div className="absolute right-0 top-0 bottom-0 w-80 bg-white z-30 shadow-2xl flex flex-col">
+      <div className="absolute right-0 top-0 bottom-0 w-full sm:w-80 bg-white z-30 shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-3 md:p-4 border-b border-gray-100">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-[#5D4037] font-quicksand">
+            <h2 className="text-lg md:text-xl font-bold text-[#5D4037] font-quicksand">
               🏪 商店
             </h2>
             <button
               onClick={toggleShop}
-              className="text-gray-400 hover:text-gray-600 text-2xl"
+              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
             >
-              ×
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <line x1="4" y1="4" x2="12" y2="12" />
+                <line x1="12" y1="4" x2="4" y2="12" />
+              </svg>
             </button>
           </div>
           <p className="text-sm text-gray-500 mt-1">
@@ -39,7 +42,7 @@ export function ShopPanel() {
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3">
           <h3 className="text-sm font-bold text-[#8D6E63] mb-2">食物</h3>
           {foods.map((food) => {
             const isUnlocked = unlockedFoods.includes(food.id);

@@ -17,7 +17,7 @@ export function ToyPanel() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="absolute bottom-4 right-20 px-4 py-2 rounded-xl text-white text-sm font-medium transition-all hover:scale-105 z-40"
+        className="absolute bottom-16 right-16 md:bottom-4 md:right-20 px-3 py-2 rounded-xl text-white text-sm font-medium transition-all hover:scale-105 z-40"
         style={{
           background: 'rgba(139,92,60,0.7)',
           backdropFilter: 'blur(12px)',
@@ -30,7 +30,7 @@ export function ToyPanel() {
   }
 
   return (
-    <div className="absolute bottom-16 right-4 w-80 z-40" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+    <div className="absolute bottom-20 right-2 md:bottom-16 md:right-4 w-72 md:w-80 z-40" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
       <div
         className="rounded-2xl p-4"
         style={{
