@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react';
 import { GLTFLoader } from 'three-stdlib';
-import capybaraModel from '@/assets/capybara.glb?url';
 
 interface LaunchPageProps {
   onStart: () => void;
 }
+
+// Stable path: GLB in public/ directory (no hash)
+const GLB_PUBLIC_PATH = `${import.meta.env.BASE_URL}capybara.glb`;
 
 export function LaunchPage({ onStart }: LaunchPageProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +20,7 @@ export function LaunchPage({ onStart }: LaunchPageProps) {
 
     const loader = new GLTFLoader();
     loader.load(
-      capybaraModel,
+      GLB_PUBLIC_PATH,
       () => {
         setProgress(100);
         setStatusText('加载完成！即将进入游戏...');

@@ -4,8 +4,6 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import type { CapybaraAnimation } from '@/types/game';
 
-import capybaraModel from '@/assets/capybara.glb?url';
-
 interface CapybaraModelProps {
   animation: CapybaraAnimation;
   onClick?: () => void;
@@ -14,8 +12,10 @@ interface CapybaraModelProps {
   accessories?: string[];
 }
 
-// jsDelivr CDN mirrors GitHub files - much faster in China
-const GLB_CDN_URL = 'https://cdn.jsdelivr.net/gh/jamin1107/capybara-zoo@main/src/assets/capybara.glb';
+// Stable path: GLB in public/ directory (no hash)
+const GLB_PUBLIC_PATH = `${import.meta.env.BASE_URL}capybara.glb`;
+// jsDelivr CDN as fallback (faster in China)
+const GLB_CDN_URL = 'https://cdn.jsdelivr.net/gh/jamin1107/capybara-zoo@main/public/capybara.glb';
 
 function GLBCapybara({ animation, onClick, scale = 1 }: {
   animation: CapybaraAnimation;
@@ -33,7 +33,6 @@ function GLBCapybara({ animation, onClick, scale = 1 }: {
     const tryLoad = (url: string, isRetry: boolean = false) => {
       const loader = new GLTFLoader();
 
-      // Timeout: abort if loading takes > 15 seconds
       timeoutId = window.setTimeout(() => {
         if (!cancelled) {
           if (!isRetry) {
@@ -44,7 +43,7 @@ function GLBCapybara({ animation, onClick, scale = 1 }: {
             setLoadError(true);
           }
         }
-      }, 15000);
+      }, 20000);
 
       loader.load(
         url,
@@ -74,7 +73,7 @@ function GLBCapybara({ animation, onClick, scale = 1 }: {
       );
     };
 
-    tryLoad(capybaraModel);
+    tryLoad(GLB_PUBLIC_PATH);
     return () => { cancelled = true; clearTimeout(timeoutId); };
   }, []);
 
